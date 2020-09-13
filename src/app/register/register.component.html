@@ -3,11 +3,16 @@
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-       <form [formGroup]="myGroup">
+       <form [formGroup]="userForm" novalidate autocomplete="off">
         <mat-form-field appearance="fill">
             <mat-label>Full Name</mat-label>
-            <input matInput name="fullName" formControlName="fullName">
+            <input matInput name="fullName" formControlName="fullName" required>
+            <mat-hint align="start">Not more then 60 characters long.</mat-hint>  
           </mat-form-field>
+          
+            <mat-error *ngIf="!userForm.get('fullName').valid && userForm.get('fullName').dirty">
+              Full Name is Required!
+            </mat-error>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
@@ -21,6 +26,28 @@
        </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="onClickMe()">Register</button>
+      <button mat-raised-button color="primary" type="submit" (click)="register()" [disabled]="!userForm.valid">Register</button>
     </mat-card-actions>
   </mat-card>
+  <!-- <div>
+    <table border="1">
+        <tr>
+        <th style="padding: 10px">FormGroup</th>
+        <th style="padding: 10px">FormControl (firstname)</th>
+        </tr>
+        <tr>
+        <td style="padding: 10px">
+            touched : {{ userForm.touched }}
+            <br/> dirty : {{ userForm.dirty }}
+            <br/> valid : {{ userForm.valid }}
+            <br/> Form Values : {{userForm.value | json}}
+        </td>
+        <td style="padding: 10px">
+            touched : {{ userForm.get('fullName').touched }}
+            <br/> dirty : {{ userForm.get('fullName').dirty }}
+            <br/> valid : {{ userForm.get('fullName').valid }}
+            <br/> name Value : {{userForm.get('fullName').value}}
+        </td>
+        </tr>
+    </table>
+</div> -->
