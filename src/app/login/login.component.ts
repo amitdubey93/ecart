@@ -11,19 +11,24 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   email:string;
   password:string;
+  error:string;
   constructor(private router:Router, private authservice:AuthService) { }
 
   ngOnInit() {
   }
 
-  myGroup = new FormGroup({
+  userLoginForm = new FormGroup({
     email: new FormControl(),
     password: new FormControl()
  });
 
-  onClickMe(){
-    console.log(this.myGroup.getRawValue());
-    this.authservice.login(this.myGroup.get('email').value, this.myGroup.get('password').value).subscribe(s=>this.router.navigate(['/products']))
+  login(){
+    this.error = "";
+    console.log("getRawValue",this.userLoginForm.value);
+    this.authservice.login(this.userLoginForm.value).subscribe(
+      s=>this.router.navigate(['/products']),
+      e=> (this.error = e)
+    );
     // window.alert(s);
   }
 }

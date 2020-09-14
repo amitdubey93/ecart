@@ -14,10 +14,29 @@ export class AuthService {
   constructor(private httpClient:HttpClient) { }
   user$ = new Subject<User>();
   private apiUrl = '/api/auth';
-  login(email: string, password: string) {
-    const loginCredentials = {email,password};
-    console.log(loginCredentials);
-    return of(loginCredentials);
+  login(loginCredentials) {
+    //const loginCredentials = {email,password};
+    console.log("loginCredentials",loginCredentials);
+    return this.httpClient.post(`${this.apiUrl}/login`, loginCredentials).pipe
+    (
+      switchMap(foundUser=>{
+        if(foundUser == null)
+        {
+          return throwError('User not found. Please try again.');
+        }
+        //return of(foundUser);
+        
+        else{
+          this.setUser(foundUser);
+          console.log(`User found`,foundUser);
+          return of(foundUser);
+        }
+      }),
+      catchError(e=>{
+        console.log(`Login details could not be verified. Please try again.`,e);
+        return throwError('Login details could not be verified. Please try again.');
+      })
+    );
   }
   get user(){
     return this.user$.asObservable();

@@ -5,3 +5,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-card-actions button{
     margin-left: 9px !important;
 }
+mat-form-field{
+    width: 100%;
+}
+mat-error{
+    margin-left: 9px !important;
+}

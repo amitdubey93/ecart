@@ -1,31 +1,46 @@
 <p>
   <mat-toolbar>
-   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>eCart</span>
-  <span class="left-spacer"></span>
-  <a mat-button routerLink="/" routerLinkActive="active" style="margin-left: 5px;">Home</a>
-  <a mat-button routerLink="/products" routerLinkActive="active-link">Products</a>
-  <!-- <a mat-button routerLink="/demo" routerLinkActive="active-link">Demo</a> -->
-  <a mat-button routerLink="/register" routerLinkActive="active-link">Register</a>
-  <a *ngIf="!user" mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
-  <a *ngIf="user" mat-button (click)="logout()">Logout</a>
-  
-  
-  <a *ngIf="user" mat-icon-button>
-    <mat-icon>account_circle</mat-icon>
-  </a>
-  <a style="margin-left:10px">
-    <span *ngIf="!user">Hi User</span>
-    <span *ngIf="user">Hi {{user.fullName}}</span>
-  </a>
-  
-</mat-toolbar>
+    <button
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>eCart</span>
+    <span class="left-spacer"></span>
+    <a
+      mat-button
+      routerLink="/"
+      routerLinkActive="active"
+      style="margin-left: 5px"
+      >Home</a
+    >
+    <a mat-button routerLink="/products" routerLinkActive="active-link"
+      >Products</a
+    >
+    <!-- <a mat-button routerLink="/demo" routerLinkActive="active-link">Demo</a> -->
+    <a mat-button routerLink="/register" routerLinkActive="active-link"
+      >Register</a
+    >
+    <a
+      *ngIf="!user"
+      mat-button
+      routerLink="/login"
+      routerLinkActive="active-link"
+      >Login</a
+    >
+    <a *ngIf="user" mat-button (click)="logout()">Logout</a>
+
+    <a *ngIf="user" mat-icon-button>
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <a style="margin-left: 10px">
+      <span *ngIf="!user">Hi User</span>
+      <span *ngIf="user">Hi {{ user.fullName }}</span>
+    </a>
+  </mat-toolbar>
 </p>
-
-
-
 
 <div class="container">
   <router-outlet></router-outlet>
