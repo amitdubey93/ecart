@@ -2,7 +2,6 @@ const express = require('express');
 const userController = require('../controllers/user.controller');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
-const { of } = require('rxjs');
 
 const router = express.Router();
 

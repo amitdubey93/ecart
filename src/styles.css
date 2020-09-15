@@ -11,3 +11,6 @@ mat-form-field{
 mat-error{
     margin-left: 9px !important;
 }
+.example-card, mat-grid-list{
+    margin: 10px !important;
+}

@@ -1,11 +1,20 @@
-const app = require('./config/express');
-const config = require('./config/config');
+const express = require('express');
+const path = require('path');
 
-// initialize mongoose
-require('./config/mongoose');
+const port = process.env.port || 4260;
+const app = express();
 
-//listen to the port
+const destinationDir = path.join(__dirname, '../dist/ecart');
 
-app.listen(config.port,()=> {
-    console.log(`server is running at port ${config.port} (${config.env})`);
+//hosting from dist folder
+app.use(express.static(destinationDir));
+console.log(`express hosting from ${destinationDir}`);
+
+//serving index.html
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(destinationDir,'index.html'))
 });
+console.log("serving index.html");
+
+//initialize app and listen to port
+app.listen(port,()=>console.log(`server is running from port ${port}`));
