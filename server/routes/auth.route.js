@@ -1,18 +1,18 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
 const asyncHandler = require('express-async-handler');
-const bcrypt = require('bcrypt');
+const authController = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-router.post('/register', asyncHandler(insert));
-router.post('/login', asyncHandler(getUserByEmailIdAndPassword));
+router.post('/register', asyncHandler(insert), login);
+router.post('/login', asyncHandler(getUserByEmailIdAndPassword), login);
 
 async function insert(req, res, next){
     const user = req.body;
     console.log(`registering user`, user);
-    const savedUser = await userController.insert(user);
-    res.json(savedUser);
+    req.user = await userController.insert(user);
+    next();
 }
 
 async function getUserByEmailIdAndPassword(req, res, next){
@@ -23,11 +23,18 @@ async function getUserByEmailIdAndPassword(req, res, next){
         user.email,
         user.password
     );
-    if(savedUser == null)
-    {
-        console.log(`user is null`);
-    }
-    res.json(savedUser);
+    if(savedUser == null){ console.log(`user is null`); }
+    req.user = savedUser;
+    next();
+}
+
+function login(req, res){
+    const user = req.user;
+    const token = authController.generateToken(user);
+    res.json({
+        user,
+        token
+    })
 }
 
 module.exports = router;

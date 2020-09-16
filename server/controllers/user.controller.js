@@ -28,7 +28,21 @@ async function getUserByEmailIdAndPassword(email, password){
     }
  }
 
+ async function getUserById(id){
+    let user = await User.findById({id});
+    console.log(`findOne`,user);
+    if(user){
+        user = user.toObject();
+        delete user.hashedPassword;
+        return user;
+    }
+    else{
+        return null;
+    }
+ }
+
 module.exports = {
     insert,
-    getUserByEmailIdAndPassword
+    getUserByEmailIdAndPassword,
+    getUserById
 };

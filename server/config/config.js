@@ -7,5 +7,6 @@ module.exports = {
         uri:envVars.MONGODB_URI,
         port:envVars.MONGO_PORT,
         isDebug:envVars.MONGOOSE_DEBUG
-    }
+    },
+    jwrSecret: envVars.JWT_SECRET
 }
