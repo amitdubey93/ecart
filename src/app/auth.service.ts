@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of, Subject, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { LogService } from './core/log.service';
+import { TokenStorageService } from './token-storage.service';
 import { User } from './user';
 
 @Injectable({
@@ -11,7 +13,9 @@ import { User } from './user';
 export class AuthService {
   
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,
+     private tokenStorageService:TokenStorageService,
+      private logService:LogService)  { }
   user$ = new Subject<User>();
   private apiUrl = '/api/auth';
   login(loginCredentials) {
@@ -20,20 +24,12 @@ export class AuthService {
     return this.httpClient.post(`${this.apiUrl}/login`, loginCredentials).pipe
     (
       switchMap(foundUser=>{
-        if(foundUser == null)
-        {
-          return throwError('User not found. Please try again.');
-        }
-        //return of(foundUser);
-        
-        else{
-          this.setUser(foundUser);
+        this.setUser(foundUser);
           console.log(`User found`,foundUser);
           return of(foundUser);
-        }
       }),
       catchError(e=>{
-        console.log(`Login details could not be verified. Please try again.`,e);
+        this.logService.log(`Login details could not be verified. Please try again. ${e.error.message}`,e);
         return throwError('Login details could not be verified. Please try again.');
       })
     );
@@ -47,22 +43,23 @@ export class AuthService {
     console.log('user logged out');
     return;
   }
-  register(user: any) {
+  register(userToSave: any) {
     //make api call to save user in db
     //update the user subject
     /* this.setUser(user);
     console.log("from auth",user);
     return of(user); */
-    console.log("from auth",user);
-    return this.httpClient.post(`${this.apiUrl}/register`, user).pipe
+    console.log("from auth",userToSave);
+    return this.httpClient.post<any>(`${this.apiUrl}/register`, userToSave).pipe
     (
-      switchMap(savedUser=>{
-        this.setUser(savedUser);
-        console.log(`User registered successfully`,savedUser);
-        return of(savedUser)
+      switchMap(({user,token})=>{
+        this.setUser(user);
+        this.tokenStorageService.setToken(token);
+        console.log(`User registered successfully`,user);
+        return of(user)
       }),
       catchError(e=>{
-        console.log(`server error occured`,e);
+        console.log(`server error occured`,e.error);
         return throwError('Registration Failed. Please contact to admin');
       })
     );
