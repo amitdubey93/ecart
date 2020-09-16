@@ -2,12 +2,14 @@ const express = require('express');
 const userController = require('../controllers/user.controller');
 const asyncHandler = require('express-async-handler');
 const authController = require('../controllers/auth.controller');
+const passport = require('../middleware/passport');
 
 const router = express.Router();
 
 router.post('/register', asyncHandler(insert), login);
-router.post('/login', asyncHandler(getUserByEmailIdAndPassword), login);
-
+//.post('/login', asyncHandler(getUserByEmailIdAndPassword), login);
+router.post('/login', passport.authenticate('local',{session:false}), login);
+router.get('/findme', passport.authenticate('jwt',{session:false}), login);
 async function insert(req, res, next){
     const user = req.body;
     console.log(`registering user`, user);

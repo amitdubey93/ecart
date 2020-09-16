@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { HttpInterceptorProviders } from './interceptors/auth-header-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [HttpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

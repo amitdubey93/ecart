@@ -15,14 +15,15 @@ export class AppComponent implements OnDestroy{
   userSubcription:Subscription;
   // public isLoggedIn: boolean = JSON.parse(localStorage.getItem('loggedIn'));
   constructor(private router:Router, private authservice:AuthService) { 
+    this.authservice.findMe().subscribe(user=>{
+      this.user = user;
+    });
     this.authservice.user.subscribe(user=>{
       this.user = user;
-    })
+    });
   }
   logout(){
-    //window.alert();
     this.authservice.logout();
-    console.log('haha');
     this.router.navigate(['/login']);
   }
   ngOnDestroy(): void{

@@ -28,8 +28,8 @@ async function getUserByEmailIdAndPassword(email, password){
     }
  }
 
- async function getUserById(id){
-    let user = await User.findById({id});
+ async function getUserById(_id){
+    let user = await User.findById({_id});
     console.log(`findOne`,user);
     if(user){
         user = user.toObject();

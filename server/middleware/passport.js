@@ -25,7 +25,8 @@ const jwtLogin = new JwtStrategy(
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey: config.jwrSecret
     },
-    async (payload, done)=>{
+    async(payload, done)=>{
+        console.log("payload._id",payload._id)
         const user = await userController.getUserById(payload._id);
         return user?
         done(null, user):
