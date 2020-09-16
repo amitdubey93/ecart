@@ -5,7 +5,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products/products.component';
 import { ProductDataService } from './product-data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { EcartMaterialModule } from '../material-module';
+import { EcartMaterialModule } from '../shared/material-module';
 
 @NgModule({
   declarations: [ProductsComponent],

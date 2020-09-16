@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, of, Subject, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { LogService } from './core/log.service';
 import { TokenStorageService } from './token-storage.service';
 import { User } from './user';
 
@@ -18,8 +17,7 @@ export class AuthService {
   
 
   constructor(private httpClient:HttpClient,
-     private tokenStorageService:TokenStorageService,
-      private logService:LogService)  { }
+     private tokenStorageService:TokenStorageService)  { }
 
   user$ = new Subject<User>();
   private apiUrl = '/api/auth';
@@ -35,7 +33,7 @@ export class AuthService {
         return of(user);
       }),
       catchError(e=>{
-        this.logService.log(`Login details could not be verified. Please try again. ${e.error.message}`,e);
+        console.log(`Login details could not be verified. Please try again. ${e.error.message}`,e);
         return throwError('Login details could not be verified. Please try again.');
       })
     );

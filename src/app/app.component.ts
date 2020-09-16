@@ -24,7 +24,7 @@ export class AppComponent implements OnDestroy{
   }
   logout(){
     this.authservice.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/products']);
   }
   ngOnDestroy(): void{
     if(this.userSubcription){

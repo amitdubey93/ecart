@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../auth.service";
 
 @Component({
   selector: "app-register",
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     //console.log(user);
     this.authservice
       .register(user)
-      .subscribe((user) => this.router.navigate(["/login"]));
+      .subscribe((user) => this.router.navigate(["/products"]));
     //this.authservice.register(user).subscribe(user=>console.log("from reg comp",user))
     //window.alert("from reg comp");
   }
