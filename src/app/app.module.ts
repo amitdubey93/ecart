@@ -7,10 +7,11 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 
 import { HomeComponent } from "./home/home.component";
-import { HttpInterceptorProviders } from "./interceptors/auth-header-interceptor.service";
 import { SharedModule } from "./shared/shared.module";
 import { AppComponent } from './blocks/root/app.component';
 import { BlocksModule } from './blocks/blocks.module';
+import { HttpInterceptorProviders } from './core/interceptors/auth-header-interceptor.service';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -20,7 +21,8 @@ import { BlocksModule } from './blocks/blocks.module';
     BrowserAnimationsModule,
     HttpClientModule,
     SharedModule,
-    BlocksModule
+    BlocksModule,
+    CoreModule
   ],
   providers: [HttpInterceptorProviders],
   bootstrap: [AppComponent],

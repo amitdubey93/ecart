@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, of, Subject, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
+import { User } from '../model/user';
 import { TokenStorageService } from './token-storage.service';
-import { User } from './user';
 
 export interface UserDTO{
   user:User,
