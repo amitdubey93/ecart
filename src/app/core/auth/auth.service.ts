@@ -24,7 +24,7 @@ export class AuthService {
   login(loginCredentials) {
     //const loginCredentials = {email,password};
     console.log("loginCredentials",loginCredentials);
-    return this.httpClient.post<UserDTO>(`${this.apiUrl}/login`, loginCredentials).pipe
+    return this.httpClient.post<any>(`${this.apiUrl}/login`, loginCredentials).pipe
     (
       switchMap(({user, token})=>{
         this.setUser(user);
@@ -46,13 +46,13 @@ export class AuthService {
     if(!token){
       return EMPTY;
     }
-    return this.httpClient.get<UserDTO>(`${this.apiUrl}/findme`).pipe
+    return this.httpClient.get<any>(`${this.apiUrl}/findme`).pipe
     (
       switchMap(({user,token})=>{
         this.setUser(user);
         this.tokenStorageService.setToken(token);
         console.log(`User found on app load`,user);
-        return of(user)
+        return user.asObservable();
       }),
       catchError(e=>{
         console.log(`server error occured. ${e.message}`,e);

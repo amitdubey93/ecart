@@ -5,6 +5,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { RouterModule } from '@angular/router';
 import { EcartMaterialModule } from './material-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -13,13 +14,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     SharedRoutingModule,
     RouterModule,
-    EcartMaterialModule
+    EcartMaterialModule,
+    FlexLayoutModule
   ],
   exports:[
     EcartMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    FlexLayoutModule
   ]
 })
 export class SharedModule { }

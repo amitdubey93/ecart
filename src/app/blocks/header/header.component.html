@@ -1,1 +1,33 @@
-<p>header works!</p>
+<div>
+    <mat-toolbar color="accent">
+        <mat-toolbar-row>
+            <button fxShow="true" fxHide.gt-sm mat-icon-button (click)="sidenav.toggle()" class="example-icon"
+                aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>eCart</span>
+            <span class="left-spacer"></span>
+            <a mat-button routerLink="/" routerLinkActive="active" style="margin-left: 5px">Home</a>
+            <a mat-button routerLink="/products" routerLinkActive="active-link">Products</a>
+            <!-- <a mat-button routerLink="/demo" routerLinkActive="active-link">Demo</a> -->
+            <a mat-button routerLink="/auth/register" routerLinkActive="active-link">Register</a>
+            <a *ngIf="!user" mat-button routerLink="/auth" routerLinkActive="active-link">Login</a>
+            <a *ngIf="user" mat-button (click)="logoutEvent.emit()">Logout</a>
+
+            <a *ngIf="user" mat-icon-button>
+                <mat-icon>account_circle</mat-icon>
+            </a>
+            <a style="margin-left: 10px">
+                <span *ngIf="!user">Hi User</span>
+                <span *ngIf="user">Hi {{ user.fullName }}</span>
+            </a>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- <mat-sidenav-container fxFlexFill>
+        <mat-sidenav #sidenav>
+            <mat-nav-list>
+                <a (click)="sidenav.toggle()" routerLink="/products" routerLinkActive="active-link">Products</a>
+            </mat-nav-list>
+        </mat-sidenav>
+    </mat-sidenav-container> -->
+</div>

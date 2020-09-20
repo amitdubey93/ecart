@@ -13,6 +13,7 @@ import { BlocksModule } from './blocks/blocks.module';
 import { HttpInterceptorProviders } from './core/interceptors/auth-header-interceptor.service';
 import { CoreModule } from './core/core.module';
 
+
 @NgModule({
   declarations: [HomeComponent],
   imports: [

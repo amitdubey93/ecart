@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { AuthService } from "src/app/core/auth/auth.service";
 
 @Component({
   selector: "app-register",
@@ -17,14 +17,18 @@ export class RegisterComponent implements OnInit {
     fullName: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
-    repeatPassword: new FormControl("", [Validators.required, this.passwordsMatch]),
+    repeatPassword: new FormControl("", [
+      Validators.required,
+      this.passwordsMatch,
+    ]),
   });
-  passwordsMatch(control: FormControl){
-    const password = control.root.get('password');
-    return password && control.value !== password.value?
-    {
-      passwordsMatch:true
-    }:null;
+  passwordsMatch(control: FormControl) {
+    const password = control.root.get("password");
+    return password && control.value !== password.value
+      ? {
+          passwordsMatch: true,
+        }
+      : null;
   }
   register() {
     const user = this.userForm.getRawValue();
@@ -35,16 +39,16 @@ export class RegisterComponent implements OnInit {
     //this.authservice.register(user).subscribe(user=>console.log("from reg comp",user))
     //window.alert("from reg comp");
   }
-  get fullName(){
-    return this.userForm.get('fullName');
+  get fullName() {
+    return this.userForm.get("fullName");
   }
-  get email(){
-    return this.userForm.get('email');
+  get email() {
+    return this.userForm.get("email");
   }
-  get password(){
-    return this.userForm.get('password');
+  get password() {
+    return this.userForm.get("password");
   }
-  get repeatPassword(){
-    return this.userForm.get('repeatPassword');
+  get repeatPassword() {
+    return this.userForm.get("repeatPassword");
   }
 }
